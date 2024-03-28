@@ -14,7 +14,6 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         flexibleSpace: Center(
           child: Text(
             "My Profile",
@@ -25,7 +24,6 @@ class _ProfileState extends State<Profile> {
             ),
           ),
         ),
-        //color: Color(0xFFFF6B00),
       ),
       body: Padding(
         padding: const EdgeInsets.all(40.0),
@@ -53,7 +51,7 @@ class _ProfileState extends State<Profile> {
                 angle: 3.14, 
                 child: Icon(
                   Icons.logout_sharp,
-                  color: Color(0xFFFF6B00), // เปลี่ยนสีไอคอนเป็นสีขาว
+                  color: Color(0xFFFF6B00), 
                 ),
               ),
             ),

@@ -1,4 +1,4 @@
-import 'package:chatmusic/pages/home_page.dart';
+// import 'package:chatmusic/pages/home_page.dart';
 import 'package:chatmusic/pages/profile.dart';
 import 'package:chatmusic/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -12,25 +12,44 @@ class settingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("S E T T I N G"),
+        title: Text(
+          "S E T T I N G",
+          style: TextStyle(
+            color: Color(0xFFFF6B00),
+            fontFamily: 'atma',
+            fontSize: 33,
+          ),
+        ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => Profile())); // ทำให้กลับไปยังหน้าที่แล้ว
+            Navigator.pop(
+                context, MaterialPageRoute(builder: (context) => Profile()));
           },
         ),
       ),
+      
       body: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+        // decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+        
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Dark Mode"),
-
+            SizedBox(height: 100),
+            Text(
+              "Mode",
+              style: TextStyle(
+                color: Color(0xFFFF6B00),
+                fontFamily: 'atma',
+                fontSize: 33,
+              ),
+            ),
             CupertinoSwitch(
-              value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
-              onChanged: (value)=>
-              Provider.of<ThemeProvider>(context,listen: false).toggleTheme(),
+              value:
+                  Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
+              onChanged: (value) =>
+                  Provider.of<ThemeProvider>(context, listen: false)
+                      .toggleTheme(),
             )
           ],
         ),
@@ -38,4 +57,3 @@ class settingPage extends StatelessWidget {
     );
   }
 }
-
