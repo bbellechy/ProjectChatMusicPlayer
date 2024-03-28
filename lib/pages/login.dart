@@ -37,16 +37,16 @@ class _LoginState extends State<Login> {
                   radius: 80,
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Usename',
+                        'Username',
                         style: TextStyle(
                             fontFamily: 'Kreon',
                             fontSize: 18,
-                            color: Color(0xFFFF6B00)),
+                            color: Color.fromARGB(255, 255, 106, 0)),
                       ),
                       SizedBox(height: 5),
                       Container(
