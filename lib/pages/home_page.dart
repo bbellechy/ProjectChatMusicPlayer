@@ -16,14 +16,9 @@ class _HomeState extends State<Home> {
   final _pageControlller = PageController();
 
   @override
-  // void dispose() {
-  //   _pageControlller.dispose();
-  // }
-
-  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-
+    return Center(
+      child: Scaffold(
         body: PageView(
           controller: _pageControlller,
           children: const <Widget>[
@@ -61,6 +56,7 @@ class _HomeState extends State<Home> {
             );
           },
         ),
-      );
+      ),
+    );
   }
 }
