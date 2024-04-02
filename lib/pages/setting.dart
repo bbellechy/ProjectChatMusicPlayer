@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../models/profile.dart';
+
 class settingPage extends StatelessWidget {
   const settingPage({super.key});
 
@@ -24,7 +26,7 @@ class settingPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(
-                context, MaterialPageRoute(builder: (context) => Profile()));
+                context, MaterialPageRoute(builder: (context) => MyProfile()));
           },
         ),
       ),

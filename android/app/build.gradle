@@ -2,6 +2,10 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    // add
+    // id 'com.android.application'
+    // id 'com.google.gms.google-services'
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -49,6 +53,9 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        
+ 
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -64,4 +71,8 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // implementation platform('com.google.firebase:firebase-bom:32.8.0')
+    // classpath 'com.google.gms:google-services:4.4.1'
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+}

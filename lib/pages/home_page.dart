@@ -1,9 +1,12 @@
+import 'package:chatmusic/pages/chatOnline.dart';
 import 'package:chatmusic/pages/login.dart';
 import 'package:chatmusic/pages/searchMusic.dart';
 import 'package:chatmusic/pages/profile.dart';
+import 'package:chatmusic/pages/streaming.dart';
 import 'package:flutter/material.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar.dart';
 import 'package:rolling_bottom_bar/rolling_bottom_bar_item.dart';
+import 'package:go_router/go_router.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -17,14 +20,19 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Center(
       child: Scaffold(
         body: PageView(
           controller: _pageControlller,
           children: const <Widget>[
-            Profile(),
+            StreamingPage(),
+            ChatOnlinePage(),
+            MyProfile(),
             searchMusic(),
             Login(),
+        
             // ProfilePage(),
           ],
         ),

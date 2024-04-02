@@ -1,17 +1,45 @@
+import 'package:chatmusic/models/profile.dart';
+import 'package:chatmusic/pages/searchMusic.dart';
 import 'package:chatmusic/pages/setting.dart';
-import 'package:flutter/material.dart';
+import 'package:chatmusic/pages/streaming.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class MyProfile extends StatefulWidget {
+  const MyProfile({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<MyProfile> createState() => _MyProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _MyProfileState extends State<MyProfile> {
+  final auth = FirebaseAuth.instance ;
+
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('userProfile').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        }
+        if (!snapshot.hasData || snapshot.data == null) {
+          return Center(child: Text('No data available')); // Handle case when data is null
+        }
+        var documents = snapshot.data!.docs; // Null check before accessing 'docs'
+        if (documents.isEmpty) {
+          return Center(child: Text('No documents available')); // Handle case when there are no documents
+        }
+        var imageUrl = documents[0]['imageProfile']; // Accessing 'docs' after null check
+        
+        // Display image
+        return 
+        Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         flexibleSpace: Center(
@@ -31,13 +59,13 @@ class _ProfileState extends State<Profile> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(""),
+              backgroundImage: NetworkImage(imageUrl),
               radius: 80,
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                "Name",
+                auth.currentUser?.email ?? '',
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.bold,
@@ -45,25 +73,29 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            Container(
-              //กลับทิศทาง Icon 180 องศา
-              child: Transform.rotate(
+            ElevatedButton(onPressed: (){
+              auth.signOut().then((value){
+                Navigator.pushReplacement(context, 
+                MaterialPageRoute(builder: (context)=> StreamingPage()));
+              });
+            }, child: Transform.rotate(
                 angle: 3.14, 
+                
                 child: Icon(
                   Icons.logout_sharp,
                   color: Color(0xFFFF6B00), 
                 ),
               ),
-            ),
+                ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
+                Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => settingPage()));
               },
               child: Row(
                 children: [
                   Icon(Icons.settings),
-                  SizedBox(width: 8), // เพิ่มระยะห่างระหว่าง Icon และ Text
+                  SizedBox(width: 8), 
                   const Text("S E T T I N G"),
                 ],
               ),
@@ -71,6 +103,14 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
+    );;
+      },
     );
+    
+    
+    
+    
+    
+    
   }
 }
