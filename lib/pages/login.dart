@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:chatmusic/models/profile.dart';
+import 'package:chatmusic/pages/chatOnline.dart';
 import 'package:chatmusic/pages/login.dart';
 import 'package:chatmusic/pages/popupSongPage.dart';
 import 'package:chatmusic/pages/profile.dart';
@@ -15,7 +16,6 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
   late Profile profile;
   void initState() {
     super.initState();
-    profile = Profile(email: '', password: '',image: '');
+    profile = Profile(email: '', password: '', image: '');
   }
 
   Uint8List? _image;
@@ -81,8 +81,8 @@ class _LoginState extends State<Login> {
                             radius: 80,
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                            padding: const EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 10.0),
                             child: Form(
                               key: formkey,
                               child: Column(
@@ -91,7 +91,8 @@ class _LoginState extends State<Login> {
                                 children: [
                                   // username
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Username',
@@ -105,7 +106,8 @@ class _LoginState extends State<Login> {
                                         width: 270,
                                         height: 50,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.black,
@@ -154,7 +156,8 @@ class _LoginState extends State<Login> {
                                         width: 270,
                                         height: 50,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(30),
+                                          borderRadius:
+                                              BorderRadius.circular(30),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.black,
@@ -191,7 +194,7 @@ class _LoginState extends State<Login> {
                                       ),
                                     ],
                                   ),
-                      
+
                                   // button
                                   SizedBox(height: 25),
                                   Container(
@@ -210,45 +213,55 @@ class _LoginState extends State<Login> {
                                       ),
                                       child: SizedBox(
                                         child: ElevatedButton(
-                                            onPressed: () async{
+                                            onPressed: () async {
                                               if (formkey.currentState!
                                                   .validate()) {
                                                 formkey.currentState!.save();
-                                                try{
-                                                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                                                    email: profile.email, password: profile.password).then((value) {
-                                                      formkey.currentState!.reset();
-                                                      Navigator.pushReplacement(
-                                                        context, 
-                                                        MaterialPageRoute(builder: (context)=> MyProfile()));
-                                                    }
-                                                  
-                                                       );
-                                                }on FirebaseAuthException catch(e){
+                                                try {
+                                                  await FirebaseAuth.instance
+                                                      .signInWithEmailAndPassword(
+                                                          email: profile.email,
+                                                          password:
+                                                              profile.password)
+                                                      .then((value) {
+                                                    formkey.currentState!
+                                                        .reset();
+                                                    // Navigator.push(
+                                                    //   context,
+                                                    //   MaterialPageRoute(
+                                                    //       builder: (context) =>
+                                                    //           ChatOnlinePage()),
+                                                    // );
+                                                    Navigator.pushNamedAndRemoveUntil(context, '/profile',
+                                                    ModalRoute.withName('/profile'));
+                                                  });
+                                                } on FirebaseAuthException catch (e) {
                                                   showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context){
-                                                      return AlertDialog(
-                                                        backgroundColor:
-                                                      Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary,
-                                                  title: Text("Error"),
-                                                  content: Text(e.message ??
-                                                      "An error occurred"),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text('OK'),
-                                                    ),
-                                                  ],
-                                                      );
-                                                    } );
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          backgroundColor:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .secondary,
+                                                          title: Text("Error"),
+                                                          content: Text(e
+                                                                  .message ??
+                                                              "An error occurred"),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: Text('OK'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      });
                                                 }
-                                                
                                               }
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -284,11 +297,11 @@ class _LoginState extends State<Login> {
                                       child: SizedBox(
                                         child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pushReplacement(
+                                              Navigator.pushNamedAndRemoveUntil(
                                                   context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Register()));
+                                                  '/register',
+                                                  ModalRoute.withName(
+                                                      '/register'));
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: Theme.of(context)
@@ -317,7 +330,8 @@ class _LoginState extends State<Login> {
             );
           }
           return Scaffold(
-            body: Center(child: CircularProgressIndicator(),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
           );
         });

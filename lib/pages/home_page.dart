@@ -1,4 +1,5 @@
 import 'package:chatmusic/pages/chatOnline.dart';
+import 'package:chatmusic/pages/favoriteSong.dart';
 import 'package:chatmusic/pages/login.dart';
 import 'package:chatmusic/pages/searchMusic.dart';
 import 'package:chatmusic/pages/profile.dart';
@@ -31,7 +32,8 @@ class _HomeState extends State<Home> {
             ChatOnlinePage(),
             MyProfile(),
             searchMusic(),
-            Login(),
+            // Login(),
+            FavoriteSong()
         
             // ProfilePage(),
           ],

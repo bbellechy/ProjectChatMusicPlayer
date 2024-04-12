@@ -322,11 +322,8 @@ class _RegisterState extends State<Register> {
                                            
                                             );
                                             formkey.currentState!.reset();
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Login()));
+                                            Navigator.pushNamedAndRemoveUntil(context, '/login',
+                                             ModalRoute.withName('/login'));
                           
                                           } on FirebaseAuthException catch (e) {
                                             print("erorrr = ${e.message}");

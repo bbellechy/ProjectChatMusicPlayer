@@ -110,6 +110,9 @@ flutter:
     - family: Kreon
       fonts:
         - asset: assets/Kreon-Regular.ttf
-        
+    - family: aBeeZee
+      fonts:
+        - asset: assets/ABeeZee-Regular.ttf
+        # ABeeZee-Regular
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

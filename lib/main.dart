@@ -4,10 +4,14 @@ import 'dart:io';
 import 'package:chatmusic/models/playlist_provider.dart';
 import 'package:chatmusic/models/profile.dart';
 import 'package:chatmusic/pages/chatOnline.dart';
+import 'package:chatmusic/pages/favoriteSong.dart';
 import 'package:chatmusic/pages/home_page.dart';
 import 'package:chatmusic/pages/login.dart';
 import 'package:chatmusic/pages/popupSongPage.dart';
+import 'package:chatmusic/pages/profile.dart';
 import 'package:chatmusic/pages/register.dart';
+import 'package:chatmusic/pages/searchMusic.dart';
+import 'package:chatmusic/pages/setting.dart';
 import 'package:chatmusic/pages/streaming.dart';
 import 'package:chatmusic/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +45,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Home(),
 
-
+      routes: {
+        '/streaming':(context) => const StreamingPage(),
+        '/chat':(context) => const ChatOnlinePage(),
+        'search':(context) => const searchMusic(),
+        'favsong':(context) => const FavoriteSong(),
+        '/profile':(context) => const MyProfile(),
+        'popupsong':(context) => const PopupSong(),
+        '/login':(context) => const Login(),
+        '/register':(context) => const Register(),
+        '/setting':(context) => const settingPage(),
+      },
       theme: Provider.of<ThemeProvider>(context).themeData,
       
     );

@@ -1,9 +1,28 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chatmusic/models/song.dart';
 
 class PlaylistProvider extends ChangeNotifier {
+  
   //playlist
+  // late final CollectionReference _songsCollection;
+  // late List<Song> _playlist = [];
+    int? _currentSongIndex;
+  // audio player
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  // duration
+  Duration _currentDuration = Duration.zero;
+  Duration _totalDuration = Duration.zero;
+  
+  PlaylistProvider() {
+    listenToDuration();
+    // fetchMusic();
+  }
+  
   final List<Song> _playlist = [
     // song 1
     Song(
@@ -16,18 +35,45 @@ class PlaylistProvider extends ChangeNotifier {
         songName: "กันตรึมสกา",
         artistName: "guncharlie2 ",
         albumArtImagePath: "assets/image/ยิ่งยง.jpg",
-        audioPath: "audio/กันตึมสกา.mp3")
+        audioPath: "audio/กันตึมสกา.mp3"),
+    //song3
+    Song(
+        songName: "SHEESH",
+        artistName: "babymonster ",
+        albumArtImagePath: "assets/image/babymonster.jpg",
+        audioPath: "audio/SHEESH.mp3")
   ];
-  int? _currentSongIndex;
-  // audio player
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  // duration
-  Duration _currentDuration = Duration.zero;
-  Duration _totalDuration = Duration.zero;
-  // constructor
-  PlaylistProvider() {
-    listenToDuration();
-  }
+
+
+
+// Future<void> initialize() async {
+//   await fetchMusic();
+// }
+
+// Future<void> fetchMusic() async {
+//   QuerySnapshot querySnapshot = await _firestore.collection('playlistMusic').get();
+
+//   if (querySnapshot.docs.isNotEmpty) {
+//     for (var doc in querySnapshot.docs) {
+//       String songName = doc['songName'];
+//       String artistName = doc['artistName'];
+//       String albumArtImagePath = doc['albumArtImagePath'];
+//       String audioPath = doc['audioPath'];
+
+//       Song song = Song(
+//         songName: songName,
+//         artistName: artistName,
+//         albumArtImagePath: albumArtImagePath,
+//         audioPath: audioPath,
+//       );
+
+//       _playlist.add(song);
+//     }
+//     print("playlistttt = ${_playlist}");
+//   } else {
+//     print('No user profile found for this email');
+//   }
+// }
 
   // initially not playing
 
@@ -111,6 +157,25 @@ class PlaylistProvider extends ChangeNotifier {
     _audioPlayer.onPlayerComplete.listen((event) {
       playNextSong();
     });
+  }
+    // Method เพื่ออัปเดตสถานะของเพลง
+  void updateFavoriteStatus(int index, bool isFavorite) {
+    _playlist[index].isFavorite = isFavorite;
+    notifyListeners(); 
+  }
+//   void updatePlaylist(List<Song> newPlaylist) {
+//   _playlist.addAll(newPlaylist);
+//   notifyListeners();
+// }
+
+  // random music in playlist
+  void shuffleAndPlay() {
+    if (_playlist.isNotEmpty) {
+      Random random = Random();
+      int randomIndex = random.nextInt(_playlist.length);
+      currentSongIndex = randomIndex;
+      play();
+    }
   }
 
   // dispose

@@ -3,6 +3,7 @@ import 'package:chatmusic/pages/profile.dart';
 import 'package:chatmusic/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+// import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../models/profile.dart';
@@ -25,8 +26,7 @@ class settingPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(
-                context, MaterialPageRoute(builder: (context) => MyProfile()));
+            Navigator.pop(context);
           },
         ),
       ),

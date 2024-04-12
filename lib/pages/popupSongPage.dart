@@ -12,7 +12,7 @@ class PopupSong extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<PlaylistProvider>(builder: ((context, value, child) {
-      //gey playlist
+      //get playlist
       final playlist = value.playlist;
 
       final currentSong = playlist[value.currentSongIndex ?? 0];
